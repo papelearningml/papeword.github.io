@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interests - Papeworld</title>
+  <link href="output.css" rel="stylesheet" />
+  <link rel="icon" href="./pp.ico" type="image/x-icon">
+  <style>
+    body { background: #000; color: #ccc; }
+    header { background: #111; border-bottom:1px solid #333; }
+    footer { border-top:1px solid #333; }
+    nav a { color:#ccc; text-decoration:none; }
+    nav a:hover {color:#fff;}
+  </style>
+</head>
+<body class="font-sans">
+  <header class="fixed top-0 w-full bg-[#111] bg-opacity-90 backdrop-blur-lg z-50">
+    <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center">
+      <div class="flex items-center space-x-2">
+        <a href="./index.html">
+          <img src="pp.ico" alt="Logo" class="h-8 w-8 rounded-full hover:opacity-75 transition">
+        </a>
+        <a href="./index.html" class="text-gray-300 hover:text-gray-100 transition ease-out duration-200 text-sm px-3 py-1 bg-[#222] rounded">Home</a>
+      </div>
+      <ul class="ml-auto hidden md:flex space-x-4 text-sm font-medium items-center">
+        <li><a href="./about-me.html" class="hover:text-gray-100">About Me</a></li>
+        <li><a href="./learning-journey.html" class="hover:text-gray-100">Learning Journey</a></li>
+        <li><a href="./projects.html" class="hover:text-gray-100">Projects</a></li>
+        <li class="relative group">
+          <button class="hover:text-gray-100 flex items-center space-x-1 focus:outline-none">
+            More
+            <svg class="h-4 w-4 text-gray-400" fill="currentColor"><path .../></svg>
+          </button>
+          <ul class="hidden absolute right-0 top-full bg-[#222] border border-gray-700 rounded shadow-lg group-hover:block z-50 text-sm">
+            <li><a href="./resources.html" class="block px-4 py-2 hover:bg-gray-700">Resources</a></li>
+            <li><a href="./certifications.html" class="block px-4 py-2 hover:bg-gray-700">Certifications</a></li>
+            <li><span class="block px-4 py-2 bg-gray-700 text-gray-100 rounded">Interests</span></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="pt-32 pb-24 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl font-semibold mb-6 hover:opacity-90 transition ease-out duration-300 text-gray-100">Interests</h1>
+      <p class="text-sm text-gray-500 mb-8">What I love exploring.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 bg-[#222] rounded hover:opacity-90 transition flex flex-col">
+          <h2 class="text-lg font-semibold mb-2 text-gray-100">Artificial Intelligence</h2>
+          <p class="text-sm text-gray-400">Exploring the latest innovations and breakthroughs.</p>
+        </div>
+        <div class="p-6 bg-[#222] rounded hover:opacity-90 transition flex flex-col">
+          <h2 class="text-lg font-semibold mb-2 text-gray-100">Football</h2>
+          <p class="text-sm text-gray-400">Enjoying the beautiful game, strategy, and skill.</p>
+        </div>
+        <div class="p-6 bg-[#222] rounded hover:opacity-90 transition flex flex-col">
+          <h2 class="text-lg font-semibold mb-2 text-gray-100">FIFA</h2>
+          <p class="text-sm text-gray-400">A fun way to relax and compete digitally.</p>
+        </div>
+        <div class="p-6 bg-[#222] rounded hover:opacity-90 transition flex flex-col">
+          <h2 class="text-lg font-semibold mb-2 text-gray-100">TV Series & Movies</h2>
+          <p class="text-sm text-gray-400">Stories, inspiration, and entertainment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center mb-8">
+    <button onclick="window.history.back()" class="px-4 py-2 bg-[#222] rounded hover:opacity-90 transition text-sm text-gray-300">Back</button>
+  </div>
+
+  <footer class="mt-16 py-8 border-t border-gray-800 text-center text-gray-500 text-sm">&copy; 2024 Papeworld</footer>
+
+  <script>
+    document.documentElement.classList.add('dark');
+    window.scrollTo(0,0);
+  </script>
+</body>
+</html>
