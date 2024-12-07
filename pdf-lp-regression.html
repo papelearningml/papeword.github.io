@@ -7,6 +7,7 @@
   <link href="output.css" rel="stylesheet" />
   <link rel="icon" href="./pp.ico" type="image/x-icon">
   <style>
+    /* Vos styles existants */
     html, body {
       margin: 0; 
       padding: 0; 
@@ -158,11 +159,19 @@
       const canvas = pages[page.pageNumber - 1].canvas;
       const context = canvas.getContext('2d');
 
-      // Ajuster la taille du canvas
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
+      // Obtenir le Device Pixel Ratio
+      const dpr = window.devicePixelRatio || 1;
+
+      // Ajuster la taille du canvas en fonction du DPR
+      canvas.width = viewport.width * dpr;
+      canvas.height = viewport.height * dpr;
+
+      // Appliquer les styles CSS pour la mise en page responsive
       canvas.style.width = '100%';
       canvas.style.height = 'auto';
+
+      // Mettre à l'échelle le contexte pour rendre à haute résolution
+      context.scale(dpr, dpr);
 
       const renderContext = {
         canvasContext: context,
@@ -177,7 +186,9 @@
       if (!pdfDoc) return;
 
       const containerWidth = container.clientWidth;
-      const scale = containerWidth / 595.28; // Basé sur une largeur A4 standard en points (~595.28px)
+      
+      // Définir une échelle de base adaptée à la largeur du conteneur
+      const scale = containerWidth / 595.28; // Vous pouvez ajuster cette valeur si nécessaire
 
       const renderPromises = pdfDoc.pages.map(page => renderPage(page, scale));
       return Promise.all(renderPromises);
