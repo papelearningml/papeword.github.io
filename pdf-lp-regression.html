@@ -71,6 +71,7 @@
       opacity: 0.9;
     }
     #pdf-container {
+      width: 100%;
       max-width: 1200px; 
       margin: 0 auto;
       padding: 20px;
@@ -81,6 +82,8 @@
       margin-bottom: 20px;
     }
     canvas {
+      width: 100%;
+      height: auto;
       display: block;
       margin: 0 auto;
       background: #000;
@@ -132,44 +135,59 @@
 
     const pdfUrl = "./cheatsheet/Linear_Polynomial_Regression.pdf";
     const container = document.getElementById('pdf-container');
-    const desiredWidth = 1200; // Ajustez si nécessaire pour la qualité
 
-    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-      const numPages = pdf.numPages;
+    function renderPDF() {
+      // Vider le conteneur avant de rendre
+      container.innerHTML = '';
 
-      const renderPage = (pageNum) => {
-        return pdf.getPage(pageNum).then(page => {
-          const viewport = page.getViewport({ scale: 1 });
-          const scale = desiredWidth / viewport.width;
-          const scaledViewport = page.getViewport({ scale: scale });
+      pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+        const numPages = pdf.numPages;
 
-          const pageContainer = document.createElement('div');
-          pageContainer.className = 'page-container';
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
+        const renderPage = (pageNum) => {
+          return pdf.getPage(pageNum).then(page => {
+            const containerWidth = container.clientWidth;
+            const viewport = page.getViewport({ scale: 1 });
+            const scale = containerWidth / viewport.width;
+            const scaledViewport = page.getViewport({ scale: scale });
 
-          canvas.width = scaledViewport.width;
-          canvas.height = scaledViewport.height;
+            const pageContainer = document.createElement('div');
+            pageContainer.className = 'page-container';
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
 
-          pageContainer.appendChild(canvas);
-          container.appendChild(pageContainer);
+            canvas.width = scaledViewport.width;
+            canvas.height = scaledViewport.height;
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
 
-          const renderContext = {
-            canvasContext: context,
-            viewport: scaledViewport,
-          };
+            pageContainer.appendChild(canvas);
+            container.appendChild(pageContainer);
 
-          return page.render(renderContext).promise;
-        });
-      };
+            const renderContext = {
+              canvasContext: context,
+              viewport: scaledViewport,
+            };
 
-      let renderPromises = [];
-      for (let i = 1; i <= numPages; i++) {
-        renderPromises.push(renderPage(i));
-      }
-      return Promise.all(renderPromises);
-    }).catch(error => {
-      console.error('Error loading PDF:', error);
+            return page.render(renderContext).promise;
+          });
+        };
+
+        let renderPromises = [];
+        for (let i = 1; i <= numPages; i++) {
+          renderPromises.push(renderPage(i));
+        }
+        return Promise.all(renderPromises);
+      }).catch(error => {
+        console.error('Error loading PDF:', error);
+      });
+    }
+
+    // Rendre le PDF au chargement initial
+    renderPDF();
+
+    // Ajouter un écouteur d'événements pour redimensionner le PDF lors du redimensionnement de la fenêtre
+    window.addEventListener('resize', () => {
+      renderPDF();
     });
   </script>
 </body>
